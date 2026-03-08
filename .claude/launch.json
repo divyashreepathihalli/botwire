@@ -9,7 +9,7 @@
     },
     {
       "name": "docs",
-      "runtimeExecutable": "python",
+      "runtimeExecutable": "/opt/homebrew/bin/python3.10",
       "runtimeArgs": ["-m", "http.server", "8080", "--directory", "docs/_build/html"],
       "port": 8080
     }

@@ -86,9 +86,13 @@ class BraxEnv(BotwireEnv):
 
         # Brax built-in environment
         try:
-            env = brax_envs.get(self.env_name, backend=self.backend)
+            # Brax >=0.14 uses get_environment(); older versions use get()
+            _get_env = getattr(brax_envs, "get_environment", None) or brax_envs.get
+            env = _get_env(self.env_name, backend=self.backend)
         except Exception as exc:
-            available = list(brax_envs.registered_envs.keys())
+            # Brax >=0.14 stores registry in _envs; older in registered_envs
+            _registry = getattr(brax_envs, "_envs", None) or getattr(brax_envs, "registered_envs", {})
+            available = list(_registry.keys()) if hasattr(_registry, "keys") else []
             from botwire.envs.menagerie import list_robots
             menagerie = list_robots()
             raise ValueError(
