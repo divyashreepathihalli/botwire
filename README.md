@@ -1,4 +1,4 @@
-# botwire
+# Botwire
 
 **Full-stack robotics infrastructure on Google DeepMind's open source stack.**
 
