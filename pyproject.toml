@@ -1,0 +1,148 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "botwire"
+version = "0.1.0"
+description = "Full-stack robotics infrastructure on Google DeepMind's open source stack"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "botwire contributors" }]
+keywords = [
+    "robotics",
+    "jax",
+    "reinforcement-learning",
+    "imitation-learning",
+    "mujoco",
+    "simulation",
+    "google-deepmind",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+# Core dependencies — always installed
+dependencies = [
+    # JAX ecosystem
+    "jax>=0.4.26",
+    "jaxlib>=0.4.26",
+    "flax>=0.8.4",
+    "optax>=0.2.2",
+    "orbax-checkpoint>=0.5.20",
+    "chex>=0.1.86",
+    # Config system (GDM standard)
+    "ml-collections>=0.1.1",
+    # Data — RLDS / TFDS
+    "tensorflow>=2.16.0",
+    "tensorflow-datasets>=4.9.4",
+    # Typing and utilities
+    "numpy>=1.24.0,<2.0.0",
+    "typing_extensions>=4.9.0",
+    "absl-py>=1.4.0",
+    "etils[epath]>=1.5.0",
+    # HuggingFace Hub for model/dataset sharing
+    "huggingface-hub>=0.23.0",
+]
+
+[project.optional-dependencies]
+# Physics simulation: Brax (JAX-native) + MuJoCo + MJX
+sim = [
+    "brax>=0.10.0",
+    "mujoco>=3.1.0",
+    "mujoco-mjx>=3.1.0",
+]
+
+# dm_robotics: QP controllers, MoMa, geometry, AgentFlow
+dm = [
+    "dm-robotics-moma>=0.6.0",
+    "dm-robotics-agentflow>=0.6.0",
+    "dm-robotics-geometry>=0.6.0",
+    "dm-robotics-manipulation>=0.6.0",
+    "dm-robotics-transformations>=0.6.0",
+    "dm-env>=1.6",
+]
+
+# Acme RL agents (JAX backend)
+rl = [
+    "dm-acme[jax]>=0.4.0",
+    "reverb>=0.15.0",
+]
+
+# VLA via Gemini Robotics SDK (requires Trusted Tester access)
+vla = [
+    "gemini-robotics-sdk>=0.1.0",
+    "google-generativeai>=0.7.0",
+]
+
+# Hardware interface (ROS2)
+hardware = [
+    "rclpy>=3.0.0",
+]
+
+# Training observability
+logging = [
+    "wandb>=0.17.0",
+    "tensorboard>=2.16.0",
+]
+
+# Full install (excludes VLA + hardware which need special access)
+all = [
+    "botwire[sim,dm,rl,logging]",
+]
+
+# Developer tools
+dev = [
+    "pytest>=8.0.0",
+    "pytest-xdist>=3.5.0",
+    "pytest-cov>=5.0.0",
+    "ruff>=0.4.0",
+    "mypy>=1.10.0",
+    "pre-commit>=3.7.0",
+    "sphinx>=7.3.0",
+    "sphinx-rtd-theme>=2.0.0",
+]
+
+[project.scripts]
+botwire-train   = "botwire.scripts.botwire_train:main"
+botwire-collect = "botwire.scripts.botwire_collect:main"
+botwire-eval    = "botwire.scripts.botwire_eval:main"
+botwire-upload  = "botwire.scripts.botwire_upload:main"
+
+[project.urls]
+Homepage = "https://github.com/botwire-org/botwire"
+Documentation = "https://botwire.readthedocs.io"
+Repository = "https://github.com/botwire-org/botwire"
+Issues = "https://github.com/botwire-org/botwire/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/botwire"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "C4", "UP", "N", "SIM"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -q"
+markers = [
+    "slow: marks tests requiring GPU/TPU",
+    "hardware: marks tests requiring a real robot",
+    "sim: marks tests requiring MuJoCo or Brax",
+]

@@ -1,0 +1,93 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.Python
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Hatch / pip
+*.egg-info
+.installed.cfg
+pip-log.txt
+pip-delete-this-directory.txt
+
+# JAX / XLA cache
+.jax_cache/
+jax_cache/
+/tmp/
+
+# Checkpoints and model artifacts
+checkpoints/
+*.pkl
+*.msgpack
+*.npz
+*.npy
+
+# Datasets (local)
+data/
+datasets/local/
+*.tfrecord
+*.tfrecords
+
+# WandB
+wandb/
+.wandb/
+
+# TensorBoard
+logs/
+runs/
+tb_logs/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# ruff
+.ruff_cache/
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# MuJoCo / simulation
+*.mjb
+*.stl
+*.obj
+*.dae
+
+# Secrets / API keys
+.env
+.env.*
+secrets/
+*.pem
+*.key
+
+# Docs build
+docs/_build/
+docs/api/_autosummary/
+site/

@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "tensorboard",
+      "runtimeExecutable": "tensorboard",
+      "runtimeArgs": ["--logdir", "./logs", "--port", "6006"],
+      "port": 6006
+    },
+    {
+      "name": "docs",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8080", "--directory", "docs/_build/html"],
+      "port": 8080
+    }
+  ]
+}
