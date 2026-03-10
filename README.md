@@ -2,7 +2,7 @@
 
 **Full-stack robotics infrastructure on Google DeepMind's open source stack.**
 
-botwire is a JAX-native robotics framework modeled after HuggingFace's [LeRobot](https://github.com/huggingface/lerobot), built entirely on GDM's open source ecosystem.
+botwire is a JAX-native robotics framework built entirely on GDM's open source ecosystem.
 
 ```
 Robot / Sim  →  collect episodes  →  RLDS dataset  →  train policy  →  deploy
