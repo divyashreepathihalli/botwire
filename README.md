@@ -26,18 +26,6 @@ Robot / Sim  →  collect episodes  →  RLDS dataset  →  train policy  →  d
 # Core (JAX + datasets + HF Hub)
 pip install botwire
 
-# With simulation (Brax + MuJoCo Menagerie)
-pip install botwire[sim]
-
-# With dm_robotics (QP controllers + MoMa)
-pip install botwire[dm]
-
-# With RL agents (Acme + Reverb)
-pip install botwire[rl]
-
-# Full (excludes VLA which needs special Trusted Tester access)
-pip install botwire[all]
-
 # Development
 pip install botwire[all,dev]
 ```
